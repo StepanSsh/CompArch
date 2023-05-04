@@ -1,0 +1,1 @@
+iverilog -o ./compiled/$1.o -s $1 $1.v

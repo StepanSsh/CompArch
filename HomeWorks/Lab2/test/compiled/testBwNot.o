@@ -1,0 +1,97 @@
+#! /opt/homebrew/Cellar/icarus-verilog/11.0/bin/vvp
+:ivl_version "11.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/system.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/vhdl_sys.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/vhdl_textio.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/v2005_math.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/11.0/lib/ivl/va_math.vpi";
+S_0x142e0a570 .scope module, "testBwNot" "testBwNot" 2 2;
+ .timescale 0 0;
+v0x6000006c55f0_0 .var "a", 3 0;
+v0x6000006c5680_0 .net "bwNot_a", 3 0, L_0x6000005c48c0;  1 drivers
+S_0x142e0a6e0 .scope module, "bw_not" "bitwiseNot" 2 6, 3 64 0, S_0x142e0a570;
+ .timescale 0 0;
+    .port_info 0 /INPUT 4 "a";
+    .port_info 1 /OUTPUT 4 "res";
+v0x6000006c54d0_0 .net "a", 3 0, v0x6000006c55f0_0;  1 drivers
+v0x6000006c5560_0 .net "res", 3 0, L_0x6000005c48c0;  alias, 1 drivers
+L_0x6000005c4640 .part v0x6000006c55f0_0, 0, 1;
+L_0x6000005c46e0 .part v0x6000006c55f0_0, 1, 1;
+L_0x6000005c4780 .part v0x6000006c55f0_0, 2, 1;
+L_0x6000005c4820 .part v0x6000006c55f0_0, 3, 1;
+RS_0x148040070 .resolv tri, L_0x600001fc4c40, L_0x600001fc4cb0;
+RS_0x148040190 .resolv tri, L_0x600001fc4d20, L_0x600001fc4d90;
+RS_0x1480402b0 .resolv tri, L_0x600001fc4e00, L_0x600001fc4e70;
+RS_0x1480403d0 .resolv tri, L_0x600001fc4ee0, L_0x600001fc4f50;
+L_0x6000005c48c0 .concat8 [ 1 1 1 1], RS_0x148040070, RS_0x148040190, RS_0x1480402b0, RS_0x1480403d0;
+S_0x142e0a850 .scope module, "not_0" "not_switch" 3 68, 3 213 0, S_0x142e0a6e0;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "a";
+    .port_info 1 /OUTPUT 1 "out";
+L_0x600001fc4930 .functor BUFT 1, C8<771>, C4<0>, C4<0>, C4<0>;
+L_0x600001fc4c40 .functor PMOS 1, L_0x600001fc4930, L_0x6000005c4640, C4<0>, C4<0>;
+L_0x600001fc48c0 .functor BUFT 1, C8<770>, C4<0>, C4<0>, C4<0>;
+L_0x600001fc4cb0 .functor NMOS 1, L_0x600001fc48c0, L_0x6000005c4640, C4<0>, C4<0>;
+v0x6000006c4cf0_0 .net "a", 0 0, L_0x6000005c4640;  1 drivers
+v0x6000006c4ab0_0 .net8 "gnd", 0 0, L_0x600001fc48c0;  1 drivers, strength-aware
+v0x6000006c4870_0 .net8 "out", 0 0, RS_0x148040070;  2 drivers, strength-aware
+v0x6000006c4630_0 .net8 "vdd", 0 0, L_0x600001fc4930;  1 drivers, strength-aware
+S_0x142e0a9c0 .scope module, "not_1" "not_switch" 3 69, 3 213 0, S_0x142e0a6e0;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "a";
+    .port_info 1 /OUTPUT 1 "out";
+L_0x600001fc4a10 .functor BUFT 1, C8<771>, C4<0>, C4<0>, C4<0>;
+L_0x600001fc4d20 .functor PMOS 1, L_0x600001fc4a10, L_0x6000005c46e0, C4<0>, C4<0>;
+L_0x600001fc49a0 .functor BUFT 1, C8<770>, C4<0>, C4<0>, C4<0>;
+L_0x600001fc4d90 .functor NMOS 1, L_0x600001fc49a0, L_0x6000005c46e0, C4<0>, C4<0>;
+v0x6000006c4e10_0 .net "a", 0 0, L_0x6000005c46e0;  1 drivers
+v0x6000006c4ea0_0 .net8 "gnd", 0 0, L_0x600001fc49a0;  1 drivers, strength-aware
+v0x6000006c4f30_0 .net8 "out", 0 0, RS_0x148040190;  2 drivers, strength-aware
+v0x6000006c4fc0_0 .net8 "vdd", 0 0, L_0x600001fc4a10;  1 drivers, strength-aware
+S_0x142e0ab30 .scope module, "not_2" "not_switch" 3 70, 3 213 0, S_0x142e0a6e0;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "a";
+    .port_info 1 /OUTPUT 1 "out";
+L_0x600001fc4af0 .functor BUFT 1, C8<771>, C4<0>, C4<0>, C4<0>;
+L_0x600001fc4e00 .functor PMOS 1, L_0x600001fc4af0, L_0x6000005c4780, C4<0>, C4<0>;
+L_0x600001fc4a80 .functor BUFT 1, C8<770>, C4<0>, C4<0>, C4<0>;
+L_0x600001fc4e70 .functor NMOS 1, L_0x600001fc4a80, L_0x6000005c4780, C4<0>, C4<0>;
+v0x6000006c5050_0 .net "a", 0 0, L_0x6000005c4780;  1 drivers
+v0x6000006c50e0_0 .net8 "gnd", 0 0, L_0x600001fc4a80;  1 drivers, strength-aware
+v0x6000006c5170_0 .net8 "out", 0 0, RS_0x1480402b0;  2 drivers, strength-aware
+v0x6000006c5200_0 .net8 "vdd", 0 0, L_0x600001fc4af0;  1 drivers, strength-aware
+S_0x142e0aca0 .scope module, "not_3" "not_switch" 3 71, 3 213 0, S_0x142e0a6e0;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "a";
+    .port_info 1 /OUTPUT 1 "out";
+L_0x600001fc4bd0 .functor BUFT 1, C8<771>, C4<0>, C4<0>, C4<0>;
+L_0x600001fc4ee0 .functor PMOS 1, L_0x600001fc4bd0, L_0x6000005c4820, C4<0>, C4<0>;
+L_0x600001fc4b60 .functor BUFT 1, C8<770>, C4<0>, C4<0>, C4<0>;
+L_0x600001fc4f50 .functor NMOS 1, L_0x600001fc4b60, L_0x6000005c4820, C4<0>, C4<0>;
+v0x6000006c5290_0 .net "a", 0 0, L_0x6000005c4820;  1 drivers
+v0x6000006c5320_0 .net8 "gnd", 0 0, L_0x600001fc4b60;  1 drivers, strength-aware
+v0x6000006c53b0_0 .net8 "out", 0 0, RS_0x1480403d0;  2 drivers, strength-aware
+v0x6000006c5440_0 .net8 "vdd", 0 0, L_0x600001fc4bd0;  1 drivers, strength-aware
+    .scope S_0x142e0a570;
+T_0 ;
+    %vpi_call 2 9 "$dumpfile", "./dumps/dumpBwNot.vcd" {0 0 0};
+    %vpi_call 2 10 "$dumpvars" {0 0 0};
+    %end;
+    .thread T_0;
+    .scope S_0x142e0a570;
+T_1 ;
+    %pushi/vec4 0, 0, 4;
+    %store/vec4 v0x6000006c55f0_0, 0, 4;
+    %delay 5, 0;
+    %pushi/vec4 6, 0, 4;
+    %store/vec4 v0x6000006c55f0_0, 0, 4;
+    %end;
+    .thread T_1;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "testBwNot.v";
+    "./../calculator.v";
