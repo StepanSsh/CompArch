@@ -3,7 +3,7 @@ module testSubtract();
     reg signed [3:0] a, b;
     output [3:0] res;
 
-    subtract_switch my_sub(a, b, res);
+    alu alu0(a, b, 3'b110, res);
 
     initial begin
         $dumpfile("./dumps/dumpTestSubtract.vcd");
