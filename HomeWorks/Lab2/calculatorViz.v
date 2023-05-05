@@ -362,11 +362,8 @@ endmodule
 module or_gate(a, b, out);
     input wire a, b;
     output wire out;
-
-    wire w;
-
-    nor_gate my_nor(a, b, w);
-    not_switch my_not(w, out);
+    
+    assign out = a | b;
 endmodule
 
 
@@ -374,29 +371,9 @@ module and_gate(a, b, out);
     input wire a, b;
     output wire out;
 
-    wire w;
-
-    nand_gate my_nand(a, b, w);
-    not_switch my_not(w, out);
+    assign out = a & b;
 
 
-endmodule
-
-
-module nand_gate(a, b, out);
-    input wire a, b;
-    output wire out;
-
-    assign out = !(a & b);
-
-
-endmodule
-
-module nor_gate(a, b, out);
-    input wire a, b;
-    output wire out;
-    assign out = !(a | b);
-    
 endmodule
 
 module not_switch(a, out);
