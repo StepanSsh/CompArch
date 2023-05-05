@@ -3,7 +3,7 @@ module testAnd();
     reg a, b;
     wire and_out;
 
-    and_switch my_and(a, b, and_out);
+    and_gate my_and(a, b, and_out);
 
     initial begin
         $dumpfile("./dumps/dumpTestAnd.vcd");

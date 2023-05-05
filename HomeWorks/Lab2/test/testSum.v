@@ -3,7 +3,7 @@ module testSum();
     reg signed [3:0] a, b;
     output [3:0] res;
 
-    sum_switch my_sum(a, b, res);
+    sum_gate my_sum(a, b, res);
 
     initial begin
         $dumpfile("./dumps/dumpTestSum.vcd");

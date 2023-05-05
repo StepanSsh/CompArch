@@ -3,7 +3,7 @@ module testXor();
     reg a, b;
     wire and_out;
 
-    xor_switch my_xor(a, b, and_out);
+    xor_gate my_xor(a, b, and_out);
 
     initial begin
         $dumpfile("./dumpTestXor.vcd");

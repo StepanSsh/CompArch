@@ -16,7 +16,7 @@ module alu(a, b, control, res);
 
 
     wire [3:0] adderRes;
-    sum_switch adder_res(a, muxB, control[2], adderRes);
+    sum_gate adder_res(a, muxB, control[2], adderRes);
 
     wire [3:0] zeroExRes;
     zeroExtend zeroEx_res(adderRes, zeroExRes);
@@ -180,10 +180,10 @@ module mux2to1 (a, control, res);
     not_switch not_0(control, not_control);
 
     wire and0, and1;
-    and_switch and_0(a[0], not_control, and0);
-    and_switch and_1(a[1], control, and1);
+    and_gate and_0(a[0], not_control, and0);
+    and_gate and_1(a[1], control, and1);
 
-    or_switch or_0(and0, and1, res);
+    or_gate or_0(and0, and1, res);
 endmodule
 
 module decorder2to4(addr, res);
@@ -195,10 +195,10 @@ module decorder2to4(addr, res);
     not_switch not0(addr[0], not_addr[0]);
     not_switch not1(addr[1], not_addr[1]);
     
-    and_switch and0(not_addr[0], not_addr[1], res[0]);
-    and_switch and1(addr[0], not_addr[1], res[1]);
-    and_switch and2(not_addr[0], addr[1], res[2]);
-    and_switch and3(addr[0], addr[1], res[3]);
+    and_gate and0(not_addr[0], not_addr[1], res[0]);
+    and_gate and1(addr[0], not_addr[1], res[1]);
+    and_gate and2(not_addr[0], addr[1], res[2]);
+    and_gate and3(addr[0], addr[1], res[3]);
 
 endmodule
 
@@ -215,17 +215,17 @@ module demux2to4(addr, d, res);
 
     wire [3:0] andWire;
     
-    and_switch and_0_0(not_addr[0], not_addr[1], andWire[0]);
-    and_switch and_0_1(d, andWire[0], andWire[0]);
+    and_gate and_0_0(not_addr[0], not_addr[1], andWire[0]);
+    and_gate and_0_1(d, andWire[0], andWire[0]);
 
-    and_switch and_1_0(addr[0], not_addr[1], andWire[1]);
-    and_switch and_1_1(d, andWire[1], andWire[1]);
+    and_gate and_1_0(addr[0], not_addr[1], andWire[1]);
+    and_gate and_1_1(d, andWire[1], andWire[1]);
 
-    and_switch and_2_0(not_addr[0], addr[1], andWire[2]);
-    and_switch and_2_1(d, andWire[2], andWire[2]);
+    and_gate and_2_0(not_addr[0], addr[1], andWire[2]);
+    and_gate and_2_1(d, andWire[2], andWire[2]);
 
-    and_switch and_3_0(addr[0], addr[1], andWire[3]);
-    and_switch and_3_1(d, andWire[3], andWire[3]);
+    and_gate and_3_0(addr[0], addr[1], andWire[3]);
+    and_gate and_3_1(d, andWire[3], andWire[3]);
 
     assign res = andWire;
 
@@ -245,26 +245,26 @@ module mux4to1(a, control, res);
 
     wire and0, and1, and2, and3, d0, d1, d2, d3;
 
-    and_switch and_0_0(not_c0, not_c1, d0);
-    and_switch and_0_1(d0, a[0], and0);
+    and_gate and_0_0(not_c0, not_c1, d0);
+    and_gate and_0_1(d0, a[0], and0);
 
-    and_switch and_1_0(control[0], not_c1, d1);
-    and_switch and_1_1(d1, a[1], and1);
+    and_gate and_1_0(control[0], not_c1, d1);
+    and_gate and_1_1(d1, a[1], and1);
 
-    and_switch and_2_0(not_c0, control[1], d2);
-    and_switch and_2_1(d2, a[2], and2);
+    and_gate and_2_0(not_c0, control[1], d2);
+    and_gate and_2_1(d2, a[2], and2);
 
-    and_switch and_3_0(control[0], control[1], d3);
-    and_switch and_3_1(d3, a[3], and3);
+    and_gate and_3_0(control[0], control[1], d3);
+    and_gate and_3_1(d3, a[3], and3);
 
     wire tOr1, tOr2;
-    or_switch or_0(and0, and1, tOr1);
-    or_switch or_1(and2, and3, tOr2);
-    or_switch or_2(tOr1, tOr2, res);
+    or_gate or_0(and0, and1, tOr1);
+    or_gate or_1(and2, and3, tOr2);
+    or_gate or_2(tOr1, tOr2, res);
 
 endmodule
 
-module sum_switch(a, b, cin, res);
+module sum_gate(a, b, cin, res);
     input [3:0] a, b;
     input cin;
     output [3:0] res;
@@ -287,15 +287,15 @@ module fullAdder(a, b, cin, s, cout);
 
     wire aXorb;
 
-    xor_switch xor_1(a, b, aXorb);
-    xor_switch xor_2(aXorb, cin, s);
+    xor_gate xor_1(a, b, aXorb);
+    xor_gate xor_2(aXorb, cin, s);
 
     wire aAndb;
     wire cinAndaxb;
 
-    and_switch and_1(a, b, aAndb);
-    and_switch and_2(aXorb, cin, cinAndaxb);
-    or_switch or_1(aAndb, cinAndaxb, cout);
+    and_gate and_1(a, b, aAndb);
+    and_gate and_2(aXorb, cin, cinAndaxb);
+    or_gate or_1(aAndb, cinAndaxb, cout);
 
 
 endmodule
@@ -318,10 +318,10 @@ module bitwiseOr(a, b, res);
     input [3:0] a, b;
     output [3:0] res;
 
-    or_switch or_0(a[0], b[0], res[0]);
-    or_switch or_1(a[1], b[1], res[1]);
-    or_switch or_2(a[2], b[2], res[2]);
-    or_switch or_3(a[3], b[3], res[3]);
+    or_gate or_0(a[0], b[0], res[0]);
+    or_gate or_1(a[1], b[1], res[1]);
+    or_gate or_2(a[2], b[2], res[2]);
+    or_gate or_3(a[3], b[3], res[3]);
     
 endmodule
 
@@ -330,15 +330,15 @@ module bitwiseAnd(a, b, res);
     input [3:0] a, b;
     output [3:0] res;
 
-    and_switch and_0(a[0], b[0], res[0]);
-    and_switch and_1(a[1], b[1], res[1]);
-    and_switch and_2(a[2], b[2], res[2]);
-    and_switch and_3(a[3], b[3], res[3]);
+    and_gate and_0(a[0], b[0], res[0]);
+    and_gate and_1(a[1], b[1], res[1]);
+    and_gate and_2(a[2], b[2], res[2]);
+    and_gate and_3(a[3], b[3], res[3]);
 
 endmodule
 
 
-module xor_switch(a, b, out);
+module xor_gate(a, b, out);
     // a ^ b = (not a and b) OR (not b and a)
     input wire a, b;
 
@@ -349,24 +349,24 @@ module xor_switch(a, b, out);
     not_switch not_1(a, notA);
     not_switch not_2(b, notB);
 
-    and_switch and_1(notA, b, nAB);
-    and_switch and_2(a, notB, AnB);
+    and_gate and_1(notA, b, nAB);
+    and_gate and_2(a, notB, AnB);
 
-    or_switch my_or(nAB, AnB, out);
+    or_gate my_or(nAB, AnB, out);
 
 endmodule
 
-module or_switch(a, b, out);
+module or_gate(a, b, out);
     input wire a, b;
     output wire out;
 
     wire w;
 
-    nor_switch my_nor(a, b, w);
+    nor_gate my_nor(a, b, w);
     not_switch my_not(w, out);
 endmodule
 
-module nor_switch(a, b, out);
+module nor_gate(a, b, out);
     input wire a, b;
     output wire out;
 
@@ -384,20 +384,20 @@ module nor_switch(a, b, out);
 endmodule
 
 
-module and_switch(a, b, out);
+module and_gate(a, b, out);
     input wire a, b;
     output wire out;
 
     wire w;
 
-    nand_switch my_nand(a, b, w);
+    nand_gate my_nand(a, b, w);
     not_switch my_not(w, out);
 
 
 endmodule
 
 
-module nand_switch(a, b, out);
+module nand_gate(a, b, out);
     input wire a, b;
     output wire out;
 

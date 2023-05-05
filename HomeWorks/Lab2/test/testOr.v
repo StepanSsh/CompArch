@@ -3,7 +3,7 @@ module testOr();
     reg a, b;
     wire and_out;
 
-    or_switch my_or(a, b, and_out);
+    or_gate my_or(a, b, and_out);
 
     initial begin
         $dumpfile("./dumps/dumpTestOr.vcd");
