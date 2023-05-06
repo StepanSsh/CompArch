@@ -21,10 +21,27 @@ module alu(a, b, control, res);
     wire [3:0] adderRes;
     sum_gate adder_res(a, muxB, control[2], adderRes);
 
-    wire [3:0] zeroExRes;
-    zeroExtend zeroEx_res(adderRes, zeroExRes);
     
-    mux4to1_4bit res_mux(andRes, orRes, adderRes, zeroExRes, control[1:0], res);
+    // SLT
+    // ((a[3] & invertB[3]) || adderRes[3]) & !(invertA[3] & b[3])
+    
+    wire sltW1, sltW2, sltW3, sltW4, sltW5;
+    wire [3:0] invertA;
+    bitwiseNot invert_A(a, invertA);
+
+    and_gate sltAnd1(a[3], invertB[3], sltW1);
+    or_gate sltOr1(sltW1, adderRes[3], sltW2);
+
+    and_gate sltAnd2(invertA[3], b[3], sltW3);
+    not_switch sltNot1(sltW3, sltW4);
+
+    and_gate sltAnd3(sltW2, sltW4, sltW5);
+
+    wire [3:0] sltRes;
+    
+    zeroExtend zeroEx_res(sltW5, sltRes);
+    
+    mux4to1_4bit res_mux(andRes, orRes, adderRes, sltRes, control[1:0], res);
 
     // initial begin
     //     $monitor("a : %b,\nb : %b,\ninvB : %b,\nmuxB : %b,\na and b OR a and !b: %b,\na + b OR a - b : %b,\nnot used : 011,\na | b OR a | !b : %b,\nslt : %b", a, b, invertB, muxB, andRes, adderRes, orRes, zeroExRes);
