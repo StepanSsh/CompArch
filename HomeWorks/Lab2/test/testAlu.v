@@ -16,7 +16,7 @@ module testAlu ();
 
     initial begin
         $monitor("a : %d, b : %d,\nop: %b,\nres : %d, res (bin) : %b\n******************", a, b, control, res, res);
-        #0 a = -8; b = -7; control = 3'b000;
+        #0 a = -8; b = 7; control = 3'b000;
         for (i = 0; i < 7; i = i + 1) begin
             #1 control = control + 1;
         end
